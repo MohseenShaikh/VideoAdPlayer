@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="VideoSample" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DY3-6s-sXn" customClass="PlayerView" customModule="PlayKit">
+                                <rect key="frame" x="0.0" y="64" width="414" height="233"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="DY3-6s-sXn" secondAttribute="height" multiplier="16:9" id="CLc-Ha-FVh"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1gj-DQ-K1P">
+                                <rect key="frame" x="182.5" y="312" width="49" height="38"/>
+                                <inset key="contentEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
+                                <state key="normal" title="Play"/>
+                                <connections>
+                                    <action selector="didClickPlay:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Bhu-ar-iBR"/>
+                                </connections>
+                            </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="U2i-5e-ejh">
+                                <rect key="frame" x="0.0" y="365" width="414" height="497"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="movieCell" rowHeight="101" id="c05-vb-wvB" customClass="MovieTableViewCell" customModule="VideoSample" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="101"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="c05-vb-wvB" id="Rup-NL-nSA">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="100.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="rZY-MY-pL2">
+                                                    <rect key="frame" x="20" y="11" width="374" height="79"/>
+                                                    <subviews>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tb4-fk-juN">
+                                                            <rect key="frame" x="0.0" y="10.5" width="182" height="58.5"/>
+                                                        </imageView>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3KK-jG-rMs">
+                                                            <rect key="frame" x="192" y="29.5" width="182" height="20.5"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailingMargin" secondItem="rZY-MY-pL2" secondAttribute="trailing" id="AP7-G5-op3"/>
+                                                <constraint firstItem="rZY-MY-pL2" firstAttribute="top" secondItem="Rup-NL-nSA" secondAttribute="topMargin" id="bjb-Fi-T3j"/>
+                                                <constraint firstItem="rZY-MY-pL2" firstAttribute="leading" secondItem="Rup-NL-nSA" secondAttribute="leadingMargin" id="cn3-eb-Nbn"/>
+                                                <constraint firstItem="rZY-MY-pL2" firstAttribute="bottom" secondItem="Rup-NL-nSA" secondAttribute="bottomMargin" id="fdz-ko-7e4"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="name" destination="3KK-jG-rMs" id="ZlC-uW-VyY"/>
+                                            <outlet property="thumbnailView" destination="tb4-fk-juN" id="oD7-Hy-1Uk"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="U2i-5e-ejh" firstAttribute="top" secondItem="1gj-DQ-K1P" secondAttribute="bottom" constant="15" id="5IS-Nz-jzo"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="DY3-6s-sXn" secondAttribute="trailing" id="9ZR-fI-633"/>
+                            <constraint firstItem="U2i-5e-ejh" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="B7O-nF-Q7l"/>
+                            <constraint firstItem="1gj-DQ-K1P" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Oig-uS-TDu"/>
+                            <constraint firstItem="U2i-5e-ejh" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="Okx-6T-djK"/>
+                            <constraint firstItem="DY3-6s-sXn" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="P3z-YQ-E0a"/>
+                            <constraint firstItem="1gj-DQ-K1P" firstAttribute="top" secondItem="DY3-6s-sXn" secondAttribute="bottom" constant="15" id="fAL-N1-Qh2"/>
+                            <constraint firstItem="DY3-6s-sXn" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="flg-LU-feB"/>
+                            <constraint firstItem="U2i-5e-ejh" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="kdd-aD-SeR"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <connections>
+                        <outlet property="playerContainerView" destination="DY3-6s-sXn" id="UOH-wf-mxY"/>
+                        <outlet property="tableView" destination="U2i-5e-ejh" id="iKz-j7-SmF"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="137.68115942028987" y="126.5625"/>
+        </scene>
+    </scenes>
+</document>
