@@ -16,6 +16,7 @@ class ViewController: UIViewController {
     
     @IBOutlet private weak var playerContainerView: PlayerView!
     @IBOutlet private weak var tableView: UITableView!
+    @IBOutlet private weak var playPauseButton: UIButton!
     
     // MARK: Private properties
     
@@ -28,10 +29,10 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
+        updatePlayerControls()
     }
 
     // MARK: - Private functions
-    
     
     /// Sets up tableview
     private func setupTableView() {
@@ -40,18 +41,19 @@ class ViewController: UIViewController {
     }
     
     /// Sets up the player
+    ///
+    /// - Parameter movie: A model for movie data.
     private func setupPlayer(with movie: Movie) {
         if let player = self.player {
             player.stop()
             player.destroy()
             self.player = nil
-//            self.player?.view?.removeFromSuperview()
         }
         
+        // Look out for the plugin config for ads and without ads movie
         let pluginConfig: PluginConfig?
         if let adTag = movie.tag {
             let adsConfig = IMAConfig()
-            adsConfig.enableDebugMode = true
             adsConfig.adTagUrl = adTag
             pluginConfig = PluginConfig(config: [IMAPlugin.pluginName: adsConfig])
         } else {
@@ -63,9 +65,33 @@ class ViewController: UIViewController {
     }
     
     /// Loads up the player
+    ///
+    /// - Parameter movie: A model for movie data.
     private func preparePlayer(with movie: Movie) {
+        // create media config for player
+        let mediaConfig = createMediaConfig(for: movie)
+       
+        // prepare the player
+        guard let player = self.player else {
+            assertionFailure("Player has not been loaded")
+            return
+        }
         
+        // Add observer for tracking any error's from player
+        self.player?.addObserver(self, event: PlayerEvent.error, block: { (errorEvent) in
+            print("error " + (errorEvent.adError?.localizedDescription ?? ""))
+        })
         
+        // prepare player view
+        player.view = playerContainerView
+        player.prepare(mediaConfig)
+    }
+    
+    /// Creates a media config for the player
+    ///
+    /// - Parameter movie: A model for movie data.
+    /// - Returns: Media configuration for rendering to a player.
+    private func createMediaConfig(for movie: Movie) -> MediaConfig {
         // create media source and initialize a media entry with that source
         let entryId = movie.id
         let contentUrl = movie.url
@@ -79,31 +105,33 @@ class ViewController: UIViewController {
                                       sources: [source],
                                       duration: -1)
         
-        // create media config
-        let mediaConfig = MediaConfig(mediaEntry: mediaEntry, startTime: 0)
-        
-        // prepare the player
-        guard let player = self.player else {
-            assertionFailure("Player has not been loaded")
+        // return media config
+        return MediaConfig(mediaEntry: mediaEntry, startTime: 0)
+    }
+    
+    private func updatePlayerControls() {
+        guard self.player != nil else {
+            playPauseButton.isHidden = true
             return
         }
-        
-        self.player?.addObserver(self, event: PlayerEvent.error, block: { (errorEvent) in
-            print("error " + (errorEvent.adError?.localizedDescription ?? ""))
-        })
-        
-        self.player?.view = playerContainerView
-        player.prepare(mediaConfig)
+        playPauseButton.isHidden = false
     }
     
     // MARK: - Action methods
     
-    @IBAction func didClickPlay(_ sender: UIButton) {
-//        guard let player = self.player else {
-//            assertionFailure("Player unavailable")
-//            return
-//        }
-//        player.play()
+    @IBAction func didClickPlayPause(_ sender: UIButton) {
+        guard let player = self.player else {
+            assertionFailure("Player unavailable")
+            return
+        }
+        
+        if player.isPlaying {
+            player.pause()
+            sender.setTitle("Play", for: .normal)
+        } else {
+            player.play()
+            sender.setTitle("Pause", for: .normal)
+        }
     }
 }
 
@@ -122,8 +150,6 @@ extension ViewController: UITableViewDataSource {
         cell.setup(movie: movies[indexPath.item])
         return cell
     }
-    
-    
 }
 
 // MARK: - UITableViewDelegate methods
@@ -132,5 +158,6 @@ extension ViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         setupPlayer(with: movies[indexPath.item])
         player?.play()
+        updatePlayerControls()
     }
 }

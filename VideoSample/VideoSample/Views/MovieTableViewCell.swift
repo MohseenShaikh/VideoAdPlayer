@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// Movie Tableview cell for showing the movies listing.
 class MovieTableViewCell: UITableViewCell {
 
     // MARK: - Properties
@@ -15,7 +16,7 @@ class MovieTableViewCell: UITableViewCell {
     @IBOutlet private weak var thumbnailView: UIImageView!
     @IBOutlet private weak var name: UILabel!
     
-    /// Private instance of moview
+    /// Private instance of movie
     private var movie: Movie!
     
     // MARK: - Overrides
@@ -34,5 +35,4 @@ class MovieTableViewCell: UITableViewCell {
         name.text = movie.name
         thumbnailView.image = UIImage(imageLiteralResourceName: "movie_thumbnail")
     }
-
 }

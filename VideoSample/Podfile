@@ -2,10 +2,8 @@ source 'https://github.com/CocoaPods/Specs.git'
 
 use_frameworks!
 
-# Uncomment the next line to define a global platform for your project
 platform :ios, '9.0'
 
-# Uncomment to use a git copy
 PLAYKIT_GIT='https://github.com/kaltura/playkit-ios.git'
 PLAYKIT_IMA_GIT='https://github.com/kaltura/playkit-ios-ima.git'
 
@@ -36,10 +34,7 @@ abstract_target 'SharedPods' do
   target 'VideoSample'
 end
 
-
-#target 'VideoSample' do
-#  use_frameworks!
-
+# The generic pod setup from the Cocoapods
 #  pod 'PlayKit'
 #  pod 'PlayKit_IMA'
   
