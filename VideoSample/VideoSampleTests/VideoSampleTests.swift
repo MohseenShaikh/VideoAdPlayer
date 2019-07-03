@@ -11,24 +11,44 @@ import XCTest
 
 class VideoSampleTests: XCTestCase {
 
+    /// Subject Under test.
+    var sut: ViewController!
+    
     override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        super.setUp()
+        
+        sut = ViewController()
     }
 
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        sut = nil
+        
+        super.tearDown()
     }
 
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func test_IntialPlayer_ShouldBeNil() {
+        /// Given
+        /// When
+        sut = ViewController()
+        
+        /// Then
+        XCTAssertNil(sut.player)
+        
     }
-
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+    
+    func test_LoadSingleMovie_PlayerSetsUp() {
+        /// Given
+        sut = ViewController()
+        
+        /// When
+        let movie = Movie(id: "unique_01",
+                          name: "Funny Bunny",
+                          url: BusinessConstants.StreamURL.url1,
+                          tag: nil)
+        sut.setupPlayer(with: movie)
+        
+        /// Then
+        XCTAssertNotNil(sut.player)
     }
 
 }

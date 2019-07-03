@@ -20,7 +20,7 @@ class ViewController: UIViewController {
     
     // MARK: Private properties
     
-    private var player: Player?
+    var player: Player?
     private let movies = Movie.moviesDataSource()
     private let reusableIdentifier = "movieCell"
     
@@ -43,7 +43,7 @@ class ViewController: UIViewController {
     /// Sets up the player
     ///
     /// - Parameter movie: A model for movie data.
-    private func setupPlayer(with movie: Movie) {
+    func setupPlayer(with movie: Movie) {
         if let player = self.player {
             player.stop()
             player.destroy()
